@@ -1,0 +1,97 @@
+﻿@*-truyền qua tham số của hàm view bằng model
+- ở đây viết chữ thường
+- model + với kiểu dữ liệu
+@model int
+*@
+
+@*Cách 2 sử dụng return*@
+@*@model WebApp1.Models.SinhVien*@
+@model List<WebApp1.Models.MayTinh>
+
+
+@{
+    ViewData["Title"] = "SapSep";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //1. Truyền string
+    ViewBag.title = "Sắp Xếp";
+    //2. truyền kiểu số
+    // ViewBag.title = 1;
+    //3. truyền một list
+    ViewBag.DanhSachSinhVien = new List<string> { "tiến đạt", "phuc loc" };
+    ViewBag.active = 1;
+
+    //Cách 2 sử dụng viewBag    ép kiểu viewBAg
+    //WebApp1.Models.SinhVien sv1 = (WebApp1.Models.SinhVien)ViewBag.sv1;
+}
+
+
+<!-- banner section start -->
+<main>
+    <div class="page-section features">
+        @*cách 1 : truyền bằng vier bag
+        Truyền từ số sang controller :A = @ViewBag.A*@
+        @*
+        cách 2; truyền bằng tham số view Model
+
+        *@
+
+        @*
+        Cách 1 truyền bằng return
+        Truyền từ số sang controller :A = @Model.Lop*@
+        @*cách 2 truyền bằng viewBag
+        Truyền từ số sang controller :A = @sv1.MaSo
+        *@
+        <h4> Danh sách sinh viên</h4>
+        <p>
+            <a href="~/Home/SapXep.cshtml">Giá thấp nhấy</a>
+            <a href="~/Home/SapXepGiamDan.cshtml">Giá thấp </a>
+        </p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>MÃ MÁy</th>
+                    <th>Tên dòng máy</th>
+                    <th>Giá BÁn </th>
+                    <th>Ngày sản xuats</th>
+                    <th>Hãng Sx</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MaMay</td>
+                        <td>@item.DongMay</td>
+                        <td>@string.Format("{0:#,0}", item.GiaBan)</td>
+                        <td>@string.Format("{0:dd-MM-yyyy}", item.NgaySX)</td>
+                        <td>@item.HangSX</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- donate section end -->
+    @*<div class="footer_section_2">
+    <div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-3">
+    <div class="social_icon">
+    <ul>
+    <li><a href="#"><img src="images/fb-icon.png"></a></li>
+    <li><a href="#"><img src="images/twitter-icon.png"></a></li>
+    <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
+    <li><a href="#"><img src="images/instagram-icon.png"></a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="col-sm-8 col-md-8 col-lg-9">
+    <input type="text" class="address_text" placeholder="Enter your Enail" name="text">
+    <button type="button" class="get_bt">SUBSCRIBE</button>
+    </div>
+    </div>
+    *@
+    @section LienHe{
+        <input type="text" class="address_text" placeholder="Enter your Enail" name="text">
+        <button type="button" class="get_bt">SUBSCRIBE</button>
+    }
+</main>
+
